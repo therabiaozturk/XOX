@@ -1,0 +1,89 @@
+package XOXoyunu;
+
+import java.util.Scanner;
+
+public class Xox_oyunu {
+ 
+ public static int satır,sütun;
+ public static Scanner oku = new Scanner(System.in);
+ public static char[][] tablo = new char[3][3];
+ public static char sıra = 'X';
+
+ 
+ public static void main(String[] args) {
+  
+  for (int i=0;i<3;i++)       
+  {
+   for (int j=0;j<3;j++) 
+    tablo[i][j]='_';
+  }
+  
+  Oyna();        
+
+ }
+ 
+ public static void Oyna()
+ {
+  boolean devam = true;    
+  TabloBoya();
+  while (devam){      
+   
+   satır =5;
+   while (satır>3 || satır <0){   
+    System.out.println( sıra + " Oyuncusu Satir Numarasini Gir.");
+    satır = oku.nextInt() -1;
+   }
+   sütun = 5;
+   while (sütun>3 || sütun <0){   
+    System.out.println( sıra + " Oyuncusu Sutun Numarasini Gir.");
+    sütun = oku.nextInt() -1;
+   }
+
+   
+   if(tablo[satır][sütun]=='_'){  
+    
+    tablo [satır][sütun] = sıra; 
+    TabloBoya();
+   
+    if (OyunBittimi(satır,sütun)){  
+     System.out.print(sıra + " Oyuncusu Oyunu Kazanmistir.");
+     devam = false;
+    }
+    
+    if (sıra == 'X'){     
+     sıra = 'O';
+    }else {
+     sıra = 'X';
+    }
+   }else{         
+    System.out.println("Rakip Oyuncunun Hamle Yaptigi Yere Hamle Yapamazsiniz");
+    TabloBoya();
+   }
+  }
+ }
+ public static void TabloBoya()     
+ {
+  for (int i=0;i<3;i++){
+   System.out.print("| ");
+   for (int j=0;j<3;j++){
+    System.out.print( tablo[i][j] + " | ");
+   }
+   System.out.println();
+  }
+ }
+ 
+ public static boolean OyunBittimi(int oynananX, int oynananY)   
+ {
+  
+  if (tablo[0][oynananY] == tablo [1][oynananY] && tablo [1][oynananY] == tablo [2][oynananY])
+   return true;
+  if (tablo[oynananX][0] == tablo[oynananX][1] && tablo[oynananX][1] == tablo[oynananX][2])
+   return true;
+  
+  if (tablo[0][0] == tablo[1][1] && tablo[0][0] == tablo[2][2] && tablo[1][1] != '_')
+   return true;
+  if (tablo[0][2] == tablo[1][1] && tablo[0][2] == tablo[2][0] && tablo[1][1] != '_')
+   return true;
+  return false;
+ }
+}
